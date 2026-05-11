@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>微信支付账单分析图表</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <style>
+        #main {
+            width: 1100px;
+            height: 600px;
+            margin: 30px auto;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+
+    <script>
+        var myChart = echarts.init(document.getElementById('main'));
+
+        var option = {
+            title: {
+                text: '微信支付账单分析 (2026-05-02 至 2026-05-07)',
+                left: 'center',
+                textStyle: { fontSize: 18 }
+            },
+            tooltip: {
+                trigger: 'axis',
+                formatter: '{b}<br/>{a0}: ¥{c0}<br/>{a1}: ¥{c1}<br/>{a2}: ¥{c2}'
+            },
+            legend: {
+                data: ['日收入', '日净收支', '累计净收支'],
+                top: 35,
+                textStyle: { fontSize: 14 }
+            },
+            grid: {
+                left: '6%',
+                right: '6%',
+                bottom: '8%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                data: ['2026-05-02', '2026-05-03', '2026-05-04', '2026-05-05', '2026-05-07'],
+                axisLabel: { rotate: 15 }
+            },
+            yAxis: {
+                type: 'value',
+                name: '金额(元)',
+                axisLabel: { formatter: '¥{value}' }
+            },
+            series: [
+                {
+                    name: '日收入',
+                    type: 'bar',
+                    itemStyle: { color: '#2E8B57' },
+                    data: [0, 35.90, 36.80, 86.93, 0]
+                },
+                {
+                    name: '日净收支',
+                    type: 'bar',
+                    itemStyle: { color: '#4682B4' },
+                    data: [-5.00, -33.79, 8.51, 71.68, -1.60]
+                },
+                {
+                    name: '累计净收支',
+                    type: 'line',
+                    symbol: 'circle',
+                    symbolSize: 8,
+                    lineStyle: { color: '#DC143C', width: 3 },
+                    itemStyle: { color: '#DC143C' },
+                    data: [-5.00, -38.79, -30.28, 41.40, 39.80]
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+        window.addEventListener('resize', () => myChart.resize());
+    </script>
+</body>
+</html>
